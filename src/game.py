@@ -51,7 +51,7 @@ class Game:
                     else:
                         # CPU player moves
                         print_to_screen("Computer moves:")
-                        board.write_a_move(self.cpu_letter, cpu_player.get_random_move(board.positions))
+                        board.write_a_move(self.cpu_letter, cpu_player.get_smart_move(board, self.human_letter))
                         human_is_the_next = True
 
                     print_to_screen(board.print_board())
@@ -74,8 +74,6 @@ class Game:
                 board.reset_board()
                 # show empty board again
                 print_to_screen(board.print_board())
-                # revert innitial player
-                human_is_the_next = not human_is_the_next
             else:
                 still_playing = False
 

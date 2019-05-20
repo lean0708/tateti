@@ -71,5 +71,25 @@ class Board:
     def reset_board(self):
         self.positions = [NO_ONE for i in range(9)]
 
+    def get_winning_position(self, player_letter):
+        winner_move = None
+        for winner_combination in WINNER_POSITION_COMBINATIONS:
+            if self.positions[winner_combination[0]] == player_letter and \
+                    self.positions[winner_combination[1]] == player_letter and \
+                    self.positions[winner_combination[2]] is NO_ONE:
+                winner_move = winner_combination[2]
+                break
+            elif self.positions[winner_combination[0]] == player_letter and \
+                    self.positions[winner_combination[2]] == player_letter and \
+                    self.positions[winner_combination[1]] is NO_ONE:
+                winner_move = winner_combination[1]
+                break
+            elif self.positions[winner_combination[1]] == player_letter and \
+                    self.positions[winner_combination[2]] == player_letter and \
+                    self.positions[winner_combination[0]] is NO_ONE:
+                winner_move = winner_combination[0]
+                break
+        return winner_move
+
 
 

@@ -1,6 +1,7 @@
 from random import randint
 
 from constants import NO_ONE
+from src.board import WINNER_POSITION_COMBINATIONS
 
 
 class CPUPlayer:
@@ -19,3 +20,16 @@ class CPUPlayer:
                 else:
                     steps += 1
         return move_position
+
+    def get_smart_move(self, board, human_letter):
+        # first, look for a winner move
+        smart_move_position = board.get_winning_position(self.cpu_letter)
+
+        # if there is not a winner move, try to block the human
+        if smart_move_position is None:
+            smart_move_position = board.get_winning_position(human_letter)
+
+        # if there is not a winner move to block, make a random move
+        if smart_move_position is None:
+            smart_move_position = self.get_random_move(board.positions)
+        return smart_move_position

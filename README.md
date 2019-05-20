@@ -1,2 +1,7 @@
 # tateti
-Repo del juego del tateti hecho en python
+
+Classic tic-tac-toe game, written in python
+
+For start the game just run the main.py file:
+
+> python main.py
