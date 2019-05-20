@@ -15,7 +15,6 @@ WINNER_POSITION_COMBINATIONS = [
     [0, 4, 8],
     [2, 4, 6]
 ]
-CENTER_POSITION = 5
 
 
 class Board:
