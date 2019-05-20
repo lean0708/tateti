@@ -23,35 +23,29 @@ def print_header():
     print GAME_HEADER
 
 
-def print_to_screen(str):
-    print_header()
-    print(str)
+def print_to_screen(str_message, clear_all=True):
+    if clear_all:
+        print_header()
+    print(str_message)
 
 
-def ask_something(question, valid_answers):
+def ask_something(question, valid_answers, clear_all=True):
     # python 2.7 fix for input command
     try:
         input = raw_input
     except NameError:
         pass
-    print_header()
+    if clear_all:
+        print_header()
+    answer = ""
     answer_invalid = True
     while answer_invalid:
         answer = input(question)
         if answer not in valid_answers:
-            print_to_screen("Please select one of this options: {}".format(valid_answers))
+            print_to_screen("Please select one of this options: {}".format(valid_answers), clear_all=False)
         else:
             answer_invalid = False
     return answer
 
-
-def print_board(board, letters):
-    string_board = ""
-    for row in board:
-        for cell_value in row:
-            string_board += "[{}]".format(letters[cell_value])
-        string_board += NEW_LINE_CHARACTER
-    print(NEW_LINE_CHARACTER)
-    print(string_board)
 
 

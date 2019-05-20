@@ -1,16 +1,9 @@
 from random import randint
 
+from constants import PLAYER_ONE_LETTER, PLAYER_TWO_LETTER
 from src.board import Board
-from src.screen import print_to_screen, ask_something, print_board
-
-PLAYERS_LETTERS = {
-    0: " ",  # no player
-    1: "X",
-    2: "O"
-}
-NO_PLAYER_LETTER = PLAYERS_LETTERS[0]
-PLAYER_ONE_LETTER = PLAYERS_LETTERS[1]
-PLAYER_TWO_LETTER = PLAYERS_LETTERS[2]
+from src.cpu_player import CPUPlayer
+from src.screen import print_to_screen, ask_something
 
 
 class Game:
@@ -28,18 +21,27 @@ class Game:
         self.cpu_letter = PLAYER_ONE_LETTER if self.human_letter == PLAYER_TWO_LETTER else PLAYER_TWO_LETTER
 
         board = Board()
+        cpu_player = CPUPlayer(cpu_letter=self.cpu_letter)
 
         # select first player randomly
         if randint(0, 1):
             print_to_screen("You go first!")
         else:
             print_to_screen("Computer go first!")
-            # TODO: hacer un movimiento del cpu antes de empezar el juego
+            board.write_a_move(self.cpu_letter, cpu_player.get_random_move(board.positions))
 
         while True:
-            # TODO: pedirle al usuario que haga su jugada
-            # TODO: verificar si hay ganador o empate
-            print_board(board.board, PLAYERS_LETTERS)
-            # TODO: hacer un movimiento del cpu y verificar si hay ganador o empate
-            break
+            able_positions = board.get_able_positions()
+            if len(able_positions) > 0:
+                print_to_screen(board.print_board(), clear_all=False)
+                human_move_position = ask_something("Wich is your move? (use your numpad as the board): ",
+                                                    able_positions, clear_all=False)
+                board.write_a_move(self.human_letter, int(human_move_position) - 1)  # human's "1" is "0" for us
+                # TODO: verificar si hay ganador o empate
+                board.write_a_move(self.cpu_letter, cpu_player.get_random_move(board.positions))
+                print_to_screen("Computer moved:", clear_all=False)
+
+            else:
+                print_to_screen("Game over! It was a draw", clear_all=False)
+                break
 
