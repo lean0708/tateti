@@ -23,29 +23,32 @@ def print_header():
     print GAME_HEADER
 
 
-def print_to_screen(str_message, clear_all=True):
-    if clear_all:
-        print_header()
+def print_to_screen(str_message):
     print(str_message)
 
 
-def ask_something(question, valid_answers, clear_all=True):
+def ask_something(question, valid_answers):
     # python 2.7 fix for input command
     try:
         input = raw_input
     except NameError:
         pass
-    if clear_all:
-        print_header()
     answer = ""
     answer_invalid = True
     while answer_invalid:
         answer = input(question)
         if answer not in valid_answers:
-            print_to_screen("Please select one of this options: {}".format(valid_answers), clear_all=False)
+            print_to_screen("Please select one of this options: {}".format(valid_answers))
         else:
             answer_invalid = False
     return answer
 
 
+def print_big_message(message):
+    winner_message = """
+    ****************************
+    {}
+    ****************************
+    """.format(message)
+    print_to_screen(winner_message)
 

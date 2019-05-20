@@ -1,14 +1,28 @@
 from src.constants import NO_ONE
+from src.screen import ask_something
 
 NEW_LINE_CHARACTER = "\n"
-CORNERS_POSITIONS = [1, 3, 7, 9]
+WINNER_POSITION_COMBINATIONS = [
+    # horizontals
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    # verticals
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    # diaognals
+    [0, 4, 8],
+    [2, 4, 6]
+]
 CENTER_POSITION = 5
 
 
 class Board:
     def __init__(self):
         # all positions stay with player 0 (no player) until player 1 or 2 uses it
-        self.positions = [NO_ONE for i in range(9)]
+        self.positions = []
+        self.reset_board()
 
     def get_able_positions(self):
         able_positions = []
@@ -33,5 +47,29 @@ class Board:
         )
 
         return string_board
+
+    def get_winner_letter(self):
+        winner_letter = None
+        # check for winner
+        for winner_combination in WINNER_POSITION_COMBINATIONS:
+            # check if all positions are filled with the same letter
+            position_one = self.positions[winner_combination[0]]
+            position_two = self.positions[winner_combination[1]]
+            position_three = self.positions[winner_combination[2]]
+            if position_one is not NO_ONE and position_one == position_two and position_two == position_three:
+                winner_letter = position_one
+                break
+        return winner_letter
+
+    def ask_human_next_move(self):
+        able_positions = self.get_able_positions()
+        human_move_position = ask_something("Wich is your move? (use your numpad as the board): ",
+                                            able_positions)
+        human_position = int(human_move_position) - 1  # human's "1" is "0" for us
+        return human_position
+
+    def reset_board(self):
+        self.positions = [NO_ONE for i in range(9)]
+
 
 
