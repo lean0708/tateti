@@ -6,7 +6,6 @@ from src.cpu_player import CPUPlayer
 from src.screen import print_to_screen, ask_something, print_big_message, print_header
 
 NO_ANSWER = 'no'
-
 YES_ANWER = 'yes'
 
 
@@ -38,14 +37,14 @@ class Game:
         # game begins
         while still_playing:
             while True:
-                able_positions = board.get_able_positions()
+                available_positions = board.get_available_positions()
 
-                if len(able_positions) > 0:
+                if len(available_positions) > 0:
 
                     if human_is_the_next:
                         # human moves
                         print_to_screen("You move:")
-                        human_next_move = board.ask_human_next_move()
+                        human_next_move = board.ask_human_next_move(available_positions)
                         board.write_a_move(self.human_letter, human_next_move)
                         human_is_the_next = False
                     else:

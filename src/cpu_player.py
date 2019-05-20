@@ -1,7 +1,6 @@
 from random import randint
 
 from constants import NO_ONE
-from src.board import WINNER_POSITION_COMBINATIONS
 
 
 class CPUPlayer:
