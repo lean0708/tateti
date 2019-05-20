@@ -71,7 +71,7 @@ class Board:
     def reset_board(self):
         self.positions = [NO_ONE for i in range(9)]
 
-    def get_winning_position(self, player_letter):
+    def get_winner_position(self, player_letter):
         winner_move = None
         for winner_combination in WINNER_POSITION_COMBINATIONS:
             if self.positions[winner_combination[0]] == player_letter and \
