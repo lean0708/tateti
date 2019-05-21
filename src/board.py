@@ -78,7 +78,7 @@ class Board:
         # The human player will insert a position number according to the numpad keyboard
         # When the board has the left lower corner free (position 0) for human this position will be key "1" in numpad
         valid_anwers_for_human = [str(position + 1) for position in available_position]
-        human_move_position = ask_something("Wich is your move? (use your numpad as the board): ",
+        human_move_position = ask_something("Which is your move? (use your numpad as the board): ",
                                             valid_anwers_for_human)
         human_position = int(human_move_position) - 1  # human's "1" is "0" for us
         return human_position

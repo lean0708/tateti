@@ -22,7 +22,7 @@ class Game:
 
         # ask user for a letter
         self.human_letter = ask_something(
-            question="Wich letter do you prefer? (X/O): ",
+            question="Which letter do you prefer? (X/O): ",
             valid_answers=[PLAYER_ONE_LETTER, PLAYER_TWO_LETTER]
         )
         # set cpu letter
@@ -43,13 +43,13 @@ class Game:
 
                     if human_is_the_next:
                         # human moves
-                        print_to_screen("You move:")
+                        print_to_screen("Your turn:")
                         human_next_move = board.ask_human_next_move(available_positions)
                         board.write_a_move(self.human_letter, human_next_move)
                         human_is_the_next = False
                     else:
                         # CPU player moves
-                        print_to_screen("Computer moves:")
+                        print_to_screen("Computer just played:")
                         board.write_a_move(self.cpu_letter, cpu_player.get_smart_move(board, self.human_letter))
                         human_is_the_next = True
 
@@ -57,8 +57,8 @@ class Game:
                     winner_letter = board.get_winner_letter()
 
                     if winner_letter:
-                        winner_name = "Computer" if winner_letter == self.cpu_letter else "You"
-                        print_big_message(message="Winner is {}!".format(winner_name))
+                        winner_message = "Computer wins!" if winner_letter == self.cpu_letter else "You win!"
+                        print_big_message(message=winner_message)
                         break
 
                 else:
@@ -66,7 +66,7 @@ class Game:
                     break
 
             play_again = ask_something(
-                question="Do you wanna play again? (yes/no)",
+                question="Do you wanna play again? (yes/no): ",
                 valid_answers=[YES_ANWER, NO_ANSWER]
             )
             if play_again == YES_ANWER:
